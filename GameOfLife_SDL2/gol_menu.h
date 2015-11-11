@@ -1,0 +1,34 @@
+#ifndef __GOL_MENU_INCLUDED__
+#define __GOL_MENU_INCLUDED__
+
+typedef enum t_game_state {
+   STATE_INIT,
+   STATE_MAIN_MENU,
+   STATE_LOAD_MENU,
+   STATE_NEW_MENU,
+   STATE_EXIT,
+   STATE_SIM_PAUSED,
+   STATE_SIM_RUNNING,
+   STATE_SIM_MENU,
+   STATE_SIM_SETTINGS,
+   STATE_SIM_SAVE,
+   STATE_INVALID
+} GameState;
+
+typedef enum t_game_event {
+   EV_EXIT,
+   EV_MOUSE_L_D,
+   EV_MOUSE_L_U,
+   EV_MOUSE_R_D,
+   EV_MOUSE_R_U,
+   EV_MOUSE_MOTION,
+   EV_KEY_ESC,
+   EV_KEY_SPACE,
+   EV_KEY_UP,
+   EV_KEY_DOWN,
+   EV_KEY_LEFT,
+   EV_KEY_RIGHT,
+   EV_INVALID
+} GameEvent;
+
+#endif // __GOL_MENU_INCLUDED__
