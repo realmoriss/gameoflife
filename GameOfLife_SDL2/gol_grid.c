@@ -13,11 +13,12 @@
 #endif // __DEBUG__
 
 static const int GRID_CAP_OVERHEAD = 32;
-static const int GRID_SIZE_DEFAULT = 256;
 static const int GRID_CELL_SIZE = 16;
 
-static const char CELL_TEXTURE_PATH[] = "assets/texture/jelly.png";
-static const char DEADCELL_TEXTURE_PATH[] = "assets/texture/deadjelly.png";
+const int GRID_SIZE_DEFAULT = 255;
+
+static const char CELL_TEXTURE_PATH[] = "assets/texture/cell_blue.png";
+static const char DEADCELL_TEXTURE_PATH[] = "assets/texture/cell_blue_dead.png";
 
 Grid *grid_new(SDL_Renderer *renderer, const int size_startx, const int size_starty) {
     // Lefoglaljuk a grid valtozot
@@ -34,7 +35,9 @@ Grid *grid_new(SDL_Renderer *renderer, const int size_startx, const int size_sta
     if (size_startx < 0) {
         grid->cap_x = GRID_SIZE_DEFAULT + GRID_CAP_OVERHEAD;
         grid->size_x = GRID_SIZE_DEFAULT;
+        #ifdef __DEBUG__
         fprintf(stderr, "Figyelmeztetes: Ervenytelen x meretet adtal meg a grid letrehozasanal! Alapertelmezes hasznalata...\n");
+        #endif // __DEBUG__
     } else {
         grid->cap_x = size_startx + GRID_CAP_OVERHEAD;
         grid->size_x = size_startx;
@@ -42,7 +45,9 @@ Grid *grid_new(SDL_Renderer *renderer, const int size_startx, const int size_sta
     if (size_starty < 0) {
         grid->cap_y = GRID_SIZE_DEFAULT + GRID_CAP_OVERHEAD;
         grid->size_y = GRID_SIZE_DEFAULT;
+        #ifdef __DEBUG__
         fprintf(stderr, "Figyelmeztetes: Ervenytelen y meretet adtal meg a grid letrehozasanal! Alapertelmezes hasznalata...\n");
+        #endif // __DEBUG__
     } else {
         grid->cap_y = size_starty + GRID_CAP_OVERHEAD;
         grid->size_y = size_starty;

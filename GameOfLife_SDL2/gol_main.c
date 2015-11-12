@@ -15,6 +15,9 @@
 static const char GAME_FONT_PATH[] = "assets/fonts/opensans.ttf";
 static const int GAME_FONT_SIZE = 20;
 
+static int grid_sizex;
+static int grid_sizey;
+
 GameEvent Game_ParseEvent(SDL_Event ev) {
    switch (ev.type) {
       case SDL_KEYDOWN:
@@ -59,7 +62,6 @@ GameEvent Game_ParseEvent(SDL_Event ev) {
    return EV_INVALID;
 }
 
-
 GameState Game_StateMachine(GameVars *game_vars) {
    SDL_Event ev;
    GameEvent gameev;
@@ -88,6 +90,8 @@ GameState Game_StateMachine(GameVars *game_vars) {
                case EV_KEY_ESC:
                   return STATE_EXIT;
                case EV_KEY_SPACE:
+                  grid_sizex = GRID_SIZE_DEFAULT;
+                  grid_sizey = GRID_SIZE_DEFAULT;
                   return STATE_NEW_MENU;
                case EV_KEY_DOWN:
                   return STATE_LOAD_MENU;
@@ -129,6 +133,15 @@ GameState Game_StateMachine(GameVars *game_vars) {
          Game_RenderFont(game_vars->game_font, 8, 8);
          Game_SetFontText(game_vars->game_font, "ESC: Főmenü, SPACE: Szimuláció indítása");
          Game_RenderFont(game_vars->game_font, 8, 30);
+         Game_SetFontText(game_vars->game_font, "BAL/JOBB: Grid szélessége, FEL/LE: Grid magassága");
+         Game_RenderFont(game_vars->game_font, 8, 52);
+         char buf[128];
+         sprintf(buf, "Szélesség: %d", grid_sizex);
+         Game_SetFontText(game_vars->game_font, buf);
+         Game_RenderFont(game_vars->game_font, 64, 100);
+         sprintf(buf, "Magasság: %d", grid_sizey);
+         Game_SetFontText(game_vars->game_font, buf);
+         Game_RenderFont(game_vars->game_font, 64, 122);
          SDL_RenderPresent(game_vars->renderer);
          while (SDL_PollEvent(&ev)) {
             gameev = Game_ParseEvent(ev);
@@ -139,10 +152,26 @@ GameState Game_StateMachine(GameVars *game_vars) {
                   return STATE_MAIN_MENU;
                case EV_KEY_SPACE:
                   if (game_vars->grid == NULL) {
-                     game_vars->grid = grid_new(game_vars->renderer, -1, -1);
+                     game_vars->grid = grid_new(game_vars->renderer,  grid_sizex, grid_sizey);
                      grid_init(game_vars->grid);
                   }
                   return STATE_SIM_PAUSED;
+               case EV_KEY_UP:
+                  grid_sizey++;
+                  break;
+               case EV_KEY_DOWN:
+                  if (grid_sizey > 1) {
+                     grid_sizey--;
+                  }
+                  break;
+               case EV_KEY_RIGHT:
+                  grid_sizex++;
+                  break;
+               case EV_KEY_LEFT:
+                  if (grid_sizex > 1) {
+                     grid_sizex--;
+                  }
+                  break;
                default:
                   break;
             }

@@ -3,6 +3,8 @@
 
 #include "gol_main.h"
 
+const int GRID_SIZE_DEFAULT;
+
 /** \brief Letrehoz egy uj gridet es visszaadja a ra mutato pointert
  *
  * \param renderer SDL_Renderer*
