@@ -32,6 +32,7 @@ var gol__main_8h =
       [ "EV_KEY_DOWN", "gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a0dd3476ae7ac2d1261a8b65f3d2df1bf", null ],
       [ "EV_KEY_LEFT", "gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a448855c564bc5f5cd43dc8475669f27a", null ],
       [ "EV_KEY_RIGHT", "gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53aef095eba352632f46975ba18c33b3d42", null ],
+      [ "EV_KEY_Q", "gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a953e8b178302640d3ac9f574acdfec48", null ],
       [ "EV_INVALID", "gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53acb105f7933fbe56937252ca8a321077c", null ]
     ] ],
     [ "t_game_state", "gol__main_8h.html#a3afbe515ebaca69bf86d22d546bf53f5", [

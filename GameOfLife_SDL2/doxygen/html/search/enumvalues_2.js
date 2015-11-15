@@ -5,6 +5,7 @@ var searchData=
   ['ev_5fkey_5fdown',['EV_KEY_DOWN',['../gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a0dd3476ae7ac2d1261a8b65f3d2df1bf',1,'gol_main.h']]],
   ['ev_5fkey_5fesc',['EV_KEY_ESC',['../gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a98f15e4e53d4303d5c6531561e97d489',1,'gol_main.h']]],
   ['ev_5fkey_5fleft',['EV_KEY_LEFT',['../gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a448855c564bc5f5cd43dc8475669f27a',1,'gol_main.h']]],
+  ['ev_5fkey_5fq',['EV_KEY_Q',['../gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a953e8b178302640d3ac9f574acdfec48',1,'gol_main.h']]],
   ['ev_5fkey_5fright',['EV_KEY_RIGHT',['../gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53aef095eba352632f46975ba18c33b3d42',1,'gol_main.h']]],
   ['ev_5fkey_5fspace',['EV_KEY_SPACE',['../gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a0e3f168e3ececb6540ee676c32a06ecf',1,'gol_main.h']]],
   ['ev_5fkey_5fup',['EV_KEY_UP',['../gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53ae9ebf0ff1ec56a3b9c0245787fa43ee0',1,'gol_main.h']]],

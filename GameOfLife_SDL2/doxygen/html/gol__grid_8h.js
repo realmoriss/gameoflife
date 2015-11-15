@@ -11,5 +11,6 @@ var gol__grid_8h =
     [ "grid_set_alive", "gol__grid_8h.html#ad7638688a86dd167ff0680fcac3cf5c6", null ],
     [ "grid_set_dead", "gol__grid_8h.html#a31338e0580abded8d924b26e39e23f52", null ],
     [ "grid_set_sizex", "gol__grid_8h.html#a0a353a1eb77f86bbb282e6ef0dbe769b", null ],
-    [ "grid_set_sizey", "gol__grid_8h.html#aea0708f83603bbb92c60e3e1d4f10b6b", null ]
+    [ "grid_set_sizey", "gol__grid_8h.html#aea0708f83603bbb92c60e3e1d4f10b6b", null ],
+    [ "GRID_SIZE_DEFAULT", "gol__grid_8h.html#a5a71a4b446432b89a93ce2ff7ab6fe14", null ]
 ];

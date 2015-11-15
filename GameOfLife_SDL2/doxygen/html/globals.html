@@ -241,6 +241,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>EV_KEY_LEFT
 : <a class="el" href="gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a448855c564bc5f5cd43dc8475669f27a">gol_main.h</a>
 </li>
+<li>EV_KEY_Q
+: <a class="el" href="gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53a953e8b178302640d3ac9f574acdfec48">gol_main.h</a>
+</li>
 <li>EV_KEY_RIGHT
 : <a class="el" href="gol__main_8h.html#a55e48b3a9f8fafc7dfab9eccc87d3d53aef095eba352632f46975ba18c33b3d42">gol_main.h</a>
 </li>
@@ -283,13 +286,16 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>GAME_FONT_PATH
 : <a class="el" href="gol__main_8c.html#ab52e9450bf70f86881bc3c7e1cf6c8df">gol_main.c</a>
 </li>
+<li>GAME_FONT_SIZE
+: <a class="el" href="gol__main_8c.html#a3e328510f94ab38f9f33f87413500323">gol_main.c</a>
+</li>
 <li>Game_FreeFont()
 : <a class="el" href="gol__main_8c.html#ab97020595b9b036f763ff0f64575207a">gol_main.c</a>
 , <a class="el" href="gol__main_8h.html#ab97020595b9b036f763ff0f64575207a">gol_main.h</a>
 </li>
 <li>Game_Init_All()
-: <a class="el" href="gol__main_8c.html#a53ecdc8d8e76ee81e178679a2c01fa24">gol_main.c</a>
-, <a class="el" href="gol__main_8h.html#a53ecdc8d8e76ee81e178679a2c01fa24">gol_main.h</a>
+: <a class="el" href="gol__main_8h.html#a53ecdc8d8e76ee81e178679a2c01fa24">gol_main.h</a>
+, <a class="el" href="gol__main_8c.html#a53ecdc8d8e76ee81e178679a2c01fa24">gol_main.c</a>
 </li>
 <li>Game_Load_Texture()
 : <a class="el" href="gol__main_8c.html#a3605e7374522c63ab36473af8443cb3b">gol_main.c</a>
@@ -304,8 +310,8 @@ $(document).ready(function(){initNavTree('globals.html','');});
 , <a class="el" href="gol__main_8h.html#a3168a27422472e48e2966ebfcb986e53">gol_main.h</a>
 </li>
 <li>Game_RenderFont()
-: <a class="el" href="gol__main_8c.html#a9f9d00677f9bb7aaa62355cf9ecb2911">gol_main.c</a>
-, <a class="el" href="gol__main_8h.html#a9f9d00677f9bb7aaa62355cf9ecb2911">gol_main.h</a>
+: <a class="el" href="gol__main_8h.html#a9f9d00677f9bb7aaa62355cf9ecb2911">gol_main.h</a>
+, <a class="el" href="gol__main_8c.html#a9f9d00677f9bb7aaa62355cf9ecb2911">gol_main.c</a>
 </li>
 <li>Game_SetFontText()
 : <a class="el" href="gol__main_8c.html#a3a3a6e57d477187dc057ad60f779ffc2">gol_main.c</a>
@@ -341,12 +347,12 @@ $(document).ready(function(){initNavTree('globals.html','');});
 : <a class="el" href="gol__grid_8c.html#ae4d895bd191dc1d803e6263b085ab70e">gol_grid.c</a>
 </li>
 <li>grid_free()
-: <a class="el" href="gol__grid_8c.html#ad4b6f57e0c7c259ac96ef8c4bdde26ad">gol_grid.c</a>
-, <a class="el" href="gol__grid_8h.html#ad4b6f57e0c7c259ac96ef8c4bdde26ad">gol_grid.h</a>
+: <a class="el" href="gol__grid_8h.html#ad4b6f57e0c7c259ac96ef8c4bdde26ad">gol_grid.h</a>
+, <a class="el" href="gol__grid_8c.html#ad4b6f57e0c7c259ac96ef8c4bdde26ad">gol_grid.c</a>
 </li>
 <li>grid_get()
-: <a class="el" href="gol__grid_8h.html#a3106a96b368c54260b7109e455033387">gol_grid.h</a>
-, <a class="el" href="gol__grid_8c.html#a3106a96b368c54260b7109e455033387">gol_grid.c</a>
+: <a class="el" href="gol__grid_8c.html#a3106a96b368c54260b7109e455033387">gol_grid.c</a>
+, <a class="el" href="gol__grid_8h.html#a3106a96b368c54260b7109e455033387">gol_grid.h</a>
 </li>
 <li>grid_init()
 : <a class="el" href="gol__grid_8c.html#ad5823b5f6b5f98ff2afa23d5f3eddd12">gol_grid.c</a>
@@ -357,35 +363,42 @@ $(document).ready(function(){initNavTree('globals.html','');});
 , <a class="el" href="gol__grid_8h.html#aaff52ce0e5e0a4d31c9efb2ff072500e">gol_grid.h</a>
 </li>
 <li>grid_new()
-: <a class="el" href="gol__grid_8c.html#a5175ab8afc592987a5c0c4cc7b09977c">gol_grid.c</a>
-, <a class="el" href="gol__grid_8h.html#a5175ab8afc592987a5c0c4cc7b09977c">gol_grid.h</a>
+: <a class="el" href="gol__grid_8h.html#a5175ab8afc592987a5c0c4cc7b09977c">gol_grid.h</a>
+, <a class="el" href="gol__grid_8c.html#a5175ab8afc592987a5c0c4cc7b09977c">gol_grid.c</a>
 </li>
 <li>grid_render()
-: <a class="el" href="gol__grid_8h.html#a79fdb947613093824762555e7e19eb6c">gol_grid.h</a>
-, <a class="el" href="gol__grid_8c.html#a79fdb947613093824762555e7e19eb6c">gol_grid.c</a>
+: <a class="el" href="gol__grid_8c.html#a79fdb947613093824762555e7e19eb6c">gol_grid.c</a>
+, <a class="el" href="gol__grid_8h.html#a79fdb947613093824762555e7e19eb6c">gol_grid.h</a>
 </li>
 <li>grid_set()
-: <a class="el" href="gol__grid_8h.html#a193d08af52cafd66f4d53fdd2a5c813d">gol_grid.h</a>
-, <a class="el" href="gol__grid_8c.html#a193d08af52cafd66f4d53fdd2a5c813d">gol_grid.c</a>
+: <a class="el" href="gol__grid_8c.html#a193d08af52cafd66f4d53fdd2a5c813d">gol_grid.c</a>
+, <a class="el" href="gol__grid_8h.html#a193d08af52cafd66f4d53fdd2a5c813d">gol_grid.h</a>
 </li>
 <li>grid_set_alive()
-: <a class="el" href="gol__grid_8h.html#ad7638688a86dd167ff0680fcac3cf5c6">gol_grid.h</a>
-, <a class="el" href="gol__grid_8c.html#ad7638688a86dd167ff0680fcac3cf5c6">gol_grid.c</a>
+: <a class="el" href="gol__grid_8c.html#ad7638688a86dd167ff0680fcac3cf5c6">gol_grid.c</a>
+, <a class="el" href="gol__grid_8h.html#ad7638688a86dd167ff0680fcac3cf5c6">gol_grid.h</a>
 </li>
 <li>grid_set_dead()
-: <a class="el" href="gol__grid_8c.html#a31338e0580abded8d924b26e39e23f52">gol_grid.c</a>
-, <a class="el" href="gol__grid_8h.html#a31338e0580abded8d924b26e39e23f52">gol_grid.h</a>
+: <a class="el" href="gol__grid_8h.html#a31338e0580abded8d924b26e39e23f52">gol_grid.h</a>
+, <a class="el" href="gol__grid_8c.html#a31338e0580abded8d924b26e39e23f52">gol_grid.c</a>
 </li>
 <li>grid_set_sizex()
 : <a class="el" href="gol__grid_8c.html#a0a353a1eb77f86bbb282e6ef0dbe769b">gol_grid.c</a>
 , <a class="el" href="gol__grid_8h.html#a0a353a1eb77f86bbb282e6ef0dbe769b">gol_grid.h</a>
 </li>
 <li>grid_set_sizey()
-: <a class="el" href="gol__grid_8c.html#aea0708f83603bbb92c60e3e1d4f10b6b">gol_grid.c</a>
-, <a class="el" href="gol__grid_8h.html#aea0708f83603bbb92c60e3e1d4f10b6b">gol_grid.h</a>
+: <a class="el" href="gol__grid_8h.html#aea0708f83603bbb92c60e3e1d4f10b6b">gol_grid.h</a>
+, <a class="el" href="gol__grid_8c.html#aea0708f83603bbb92c60e3e1d4f10b6b">gol_grid.c</a>
 </li>
 <li>GRID_SIZE_DEFAULT
-: <a class="el" href="gol__grid_8c.html#a5a71a4b446432b89a93ce2ff7ab6fe14">gol_grid.c</a>
+: <a class="el" href="gol__grid_8h.html#a5a71a4b446432b89a93ce2ff7ab6fe14">gol_grid.h</a>
+, <a class="el" href="gol__grid_8c.html#a5a71a4b446432b89a93ce2ff7ab6fe14">gol_grid.c</a>
+</li>
+<li>grid_sizex
+: <a class="el" href="gol__main_8c.html#a76904a8acbb7ef1445f81ff1387ea566">gol_main.c</a>
+</li>
+<li>grid_sizey
+: <a class="el" href="gol__main_8c.html#a554fcdbde0bf5f5ae52b79ccf91cafdd">gol_main.c</a>
 </li>
 </ul>
 
@@ -425,6 +438,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>malloc
 : <a class="el" href="debugmalloc_8h.html#a183c59bc3a5f5116f8490a9335db33a3">debugmalloc.h</a>
+</li>
+<li>menualpha
+: <a class="el" href="gol__main_8c.html#a2751332fcbee01fcb5c4df6e6482a8c5">gol_main.c</a>
 </li>
 </ul>
 
@@ -499,7 +515,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Projekt: GameOfLife_SDL2 Készült: Wed Nov 11 2015 22:26:40 Készítette: 
+    <li class="footer">Projekt: GameOfLife_SDL2 Készült: Sun Nov 15 2015 22:50:54 Készítette: 
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
   </ul>

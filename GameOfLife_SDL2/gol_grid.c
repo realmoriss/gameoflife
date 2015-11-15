@@ -17,8 +17,8 @@ static const int GRID_CELL_SIZE = 16;
 
 const int GRID_SIZE_DEFAULT = 255;
 
-static const char CELL_TEXTURE_PATH[] = "assets/texture/cell_blue.png";
-static const char DEADCELL_TEXTURE_PATH[] = "assets/texture/cell_blue_dead.png";
+static const char CELL_TEXTURE_PATH[] = "assets/texture/cell_rect.png";
+static const char DEADCELL_TEXTURE_PATH[] = "assets/texture/cell_rect_dead.png";
 
 Grid *grid_new(SDL_Renderer *renderer, const int size_startx, const int size_starty) {
     // Lefoglaljuk a grid valtozot

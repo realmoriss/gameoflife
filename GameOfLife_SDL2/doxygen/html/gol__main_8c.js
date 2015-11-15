@@ -9,5 +9,9 @@ var gol__main_8c =
     [ "Game_RenderFont", "gol__main_8c.html#a9f9d00677f9bb7aaa62355cf9ecb2911", null ],
     [ "Game_SetFontText", "gol__main_8c.html#a3a3a6e57d477187dc057ad60f779ffc2", null ],
     [ "Game_StateMachine", "gol__main_8c.html#af985fe866271101fcfcdf4d096d77cd1", null ],
-    [ "GAME_FONT_PATH", "gol__main_8c.html#ab52e9450bf70f86881bc3c7e1cf6c8df", null ]
+    [ "GAME_FONT_PATH", "gol__main_8c.html#ab52e9450bf70f86881bc3c7e1cf6c8df", null ],
+    [ "GAME_FONT_SIZE", "gol__main_8c.html#a3e328510f94ab38f9f33f87413500323", null ],
+    [ "grid_sizex", "gol__main_8c.html#a76904a8acbb7ef1445f81ff1387ea566", null ],
+    [ "grid_sizey", "gol__main_8c.html#a554fcdbde0bf5f5ae52b79ccf91cafdd", null ],
+    [ "menualpha", "gol__main_8c.html#a2751332fcbee01fcb5c4df6e6482a8c5", null ]
 ];

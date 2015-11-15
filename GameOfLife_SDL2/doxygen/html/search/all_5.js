@@ -3,6 +3,7 @@ var searchData=
   ['game_5fdestroy_5fall',['Game_Destroy_All',['../gol__main_8c.html#a4027d3e31afbbed9652450f70179506f',1,'Game_Destroy_All(GameVars *game_vars):&#160;gol_main.c'],['../gol__main_8h.html#a4027d3e31afbbed9652450f70179506f',1,'Game_Destroy_All(GameVars *game_vars):&#160;gol_main.c']]],
   ['game_5ffont',['game_font',['../structt__game__vars.html#a3bdda05dfc2d328fb9198067f2955913',1,'t_game_vars']]],
   ['game_5ffont_5fpath',['GAME_FONT_PATH',['../gol__main_8c.html#ab52e9450bf70f86881bc3c7e1cf6c8df',1,'gol_main.c']]],
+  ['game_5ffont_5fsize',['GAME_FONT_SIZE',['../gol__main_8c.html#a3e328510f94ab38f9f33f87413500323',1,'gol_main.c']]],
   ['game_5ffreefont',['Game_FreeFont',['../gol__main_8c.html#ab97020595b9b036f763ff0f64575207a',1,'Game_FreeFont(GameFont *gamefont):&#160;gol_main.c'],['../gol__main_8h.html#ab97020595b9b036f763ff0f64575207a',1,'Game_FreeFont(GameFont *gamefont):&#160;gol_main.c']]],
   ['game_5finit_5fall',['Game_Init_All',['../gol__main_8c.html#a53ecdc8d8e76ee81e178679a2c01fa24',1,'Game_Init_All(GameVars *game_vars, const char *title):&#160;gol_main.c'],['../gol__main_8h.html#a53ecdc8d8e76ee81e178679a2c01fa24',1,'Game_Init_All(GameVars *game_vars, const char *title):&#160;gol_main.c']]],
   ['game_5fload_5ftexture',['Game_Load_Texture',['../gol__main_8c.html#a3605e7374522c63ab36473af8443cb3b',1,'Game_Load_Texture(const char *path, SDL_Renderer *renderer):&#160;gol_main.c'],['../gol__main_8h.html#a3605e7374522c63ab36473af8443cb3b',1,'Game_Load_Texture(const char *path, SDL_Renderer *renderer):&#160;gol_main.c']]],
@@ -34,5 +35,7 @@ var searchData=
   ['grid_5fset_5fdead',['grid_set_dead',['../gol__grid_8c.html#a31338e0580abded8d924b26e39e23f52',1,'grid_set_dead(Grid *grid, int x, int y):&#160;gol_grid.c'],['../gol__grid_8h.html#a31338e0580abded8d924b26e39e23f52',1,'grid_set_dead(Grid *grid, int x, int y):&#160;gol_grid.c']]],
   ['grid_5fset_5fsizex',['grid_set_sizex',['../gol__grid_8c.html#a0a353a1eb77f86bbb282e6ef0dbe769b',1,'grid_set_sizex(Grid *grid):&#160;gol_grid.c'],['../gol__grid_8h.html#a0a353a1eb77f86bbb282e6ef0dbe769b',1,'grid_set_sizex(Grid *grid):&#160;gol_grid.c']]],
   ['grid_5fset_5fsizey',['grid_set_sizey',['../gol__grid_8c.html#aea0708f83603bbb92c60e3e1d4f10b6b',1,'grid_set_sizey(Grid *grid):&#160;gol_grid.c'],['../gol__grid_8h.html#aea0708f83603bbb92c60e3e1d4f10b6b',1,'grid_set_sizey(Grid *grid):&#160;gol_grid.c']]],
-  ['grid_5fsize_5fdefault',['GRID_SIZE_DEFAULT',['../gol__grid_8c.html#a5a71a4b446432b89a93ce2ff7ab6fe14',1,'gol_grid.c']]]
+  ['grid_5fsize_5fdefault',['GRID_SIZE_DEFAULT',['../gol__grid_8c.html#a5a71a4b446432b89a93ce2ff7ab6fe14',1,'GRID_SIZE_DEFAULT():&#160;gol_grid.c'],['../gol__grid_8h.html#a5a71a4b446432b89a93ce2ff7ab6fe14',1,'GRID_SIZE_DEFAULT():&#160;gol_grid.h']]],
+  ['grid_5fsizex',['grid_sizex',['../gol__main_8c.html#a76904a8acbb7ef1445f81ff1387ea566',1,'gol_main.c']]],
+  ['grid_5fsizey',['grid_sizey',['../gol__main_8c.html#a554fcdbde0bf5f5ae52b79ccf91cafdd',1,'gol_main.c']]]
 ];

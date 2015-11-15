@@ -160,13 +160,13 @@ Függvények</h2></td></tr>
 Változók</h2></td></tr>
 <tr class="memitem:a41d7b007277ede5c1ef7f2f5bd9bbe83"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#a41d7b007277ede5c1ef7f2f5bd9bbe83">GRID_CAP_OVERHEAD</a> = 32</td></tr>
 <tr class="separator:a41d7b007277ede5c1ef7f2f5bd9bbe83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a71a4b446432b89a93ce2ff7ab6fe14"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#a5a71a4b446432b89a93ce2ff7ab6fe14">GRID_SIZE_DEFAULT</a> = 256</td></tr>
-<tr class="separator:a5a71a4b446432b89a93ce2ff7ab6fe14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4d895bd191dc1d803e6263b085ab70e"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#ae4d895bd191dc1d803e6263b085ab70e">GRID_CELL_SIZE</a> = 16</td></tr>
 <tr class="separator:ae4d895bd191dc1d803e6263b085ab70e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11334696911ff37b144bc52c6d3678bf"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#a11334696911ff37b144bc52c6d3678bf">CELL_TEXTURE_PATH</a> [] = &quot;assets/texture/jelly.png&quot;</td></tr>
+<tr class="memitem:a5a71a4b446432b89a93ce2ff7ab6fe14"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#a5a71a4b446432b89a93ce2ff7ab6fe14">GRID_SIZE_DEFAULT</a> = 255</td></tr>
+<tr class="separator:a5a71a4b446432b89a93ce2ff7ab6fe14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11334696911ff37b144bc52c6d3678bf"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#a11334696911ff37b144bc52c6d3678bf">CELL_TEXTURE_PATH</a> [] = &quot;assets/texture/cell_rect.png&quot;</td></tr>
 <tr class="separator:a11334696911ff37b144bc52c6d3678bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c5e0d2548ae4c3a5891966067ac762c"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#a4c5e0d2548ae4c3a5891966067ac762c">DEADCELL_TEXTURE_PATH</a> [] = &quot;assets/texture/deadjelly.png&quot;</td></tr>
+<tr class="memitem:a4c5e0d2548ae4c3a5891966067ac762c"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gol__grid_8c.html#a4c5e0d2548ae4c3a5891966067ac762c">DEADCELL_TEXTURE_PATH</a> [] = &quot;assets/texture/cell_rect_dead.png&quot;</td></tr>
 <tr class="separator:a4c5e0d2548ae4c3a5891966067ac762c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Függvények dokumentációja</h2>
@@ -605,7 +605,7 @@ Változók</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char CELL_TEXTURE_PATH[] = &quot;assets/texture/jelly.png&quot;</td>
+          <td class="memname">const char CELL_TEXTURE_PATH[] = &quot;assets/texture/cell_rect.png&quot;</td>
         </tr>
       </table>
   </td>
@@ -625,7 +625,7 @@ Változók</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char DEADCELL_TEXTURE_PATH[] = &quot;assets/texture/deadjelly.png&quot;</td>
+          <td class="memname">const char DEADCELL_TEXTURE_PATH[] = &quot;assets/texture/cell_rect_dead.png&quot;</td>
         </tr>
       </table>
   </td>
@@ -680,19 +680,11 @@ Változók</h2></td></tr>
 <a class="anchor" id="a5a71a4b446432b89a93ce2ff7ab6fe14"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const int GRID_SIZE_DEFAULT = 256</td>
+          <td class="memname">const int GRID_SIZE_DEFAULT = 255</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -703,7 +695,7 @@ Változók</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="gol__grid_8c.html">gol_grid.c</a></li>
-    <li class="footer">Projekt: GameOfLife_SDL2 Készült: Wed Nov 11 2015 22:26:40 Készítette: 
+    <li class="footer">Projekt: GameOfLife_SDL2 Készült: Sun Nov 15 2015 22:50:54 Készítette: 
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
   </ul>

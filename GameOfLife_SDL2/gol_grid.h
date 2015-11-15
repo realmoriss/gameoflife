@@ -3,7 +3,7 @@
 
 #include "gol_main.h"
 
-const int GRID_SIZE_DEFAULT;
+const int GRID_SIZE_DEFAULT;  /**< A grid alapertelmezett merete */
 
 /** \brief Letrehoz egy uj gridet es visszaadja a ra mutato pointert
  *
