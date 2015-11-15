@@ -6,3 +6,8 @@
 
 # Debug files
 *.dSYM/
+
+# CodeBlocks files
+*.depend
+*.layout
+*debug*.txt
