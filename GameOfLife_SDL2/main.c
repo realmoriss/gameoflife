@@ -3,7 +3,6 @@
 #include <time.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include "sdl_helpers.h"
 #include "gol_grid.h"
 #include "gol_main.h"
 

@@ -4,7 +4,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "gol_grid.h"
-#include "sdl_helpers.h"
 
 //#define __DEBUG__
 
@@ -196,8 +195,8 @@ void grid_render(SDL_Renderer *renderer, Grid *grid) {
     int i,j;
     SDL_Rect itemrect;
     // Az elso ervenyes elem az 1. indexu - a szegely miatt
-    for (i=0; i<grid->size_x; i++) {
-        for (j=0; j<grid->size_y; j++) {
+    for (i=0; i<grid->size_x-1; i++) {
+        for (j=0; j<grid->size_y-1; j++) {
             Cell tmpcell = grid->cells[i+1][j+1];
             if (tmpcell.state) {
                 itemrect = (SDL_Rect){grid->cell_size*i, grid->cell_size*j, grid->cell_texture.texture_size.x, grid->cell_texture.texture_size.y};

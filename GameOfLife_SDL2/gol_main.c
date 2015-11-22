@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include "gol_grid.h"
 #include "gol_main.h"
+#include "gol_menu.h"
 
 //#define __DEBUG__
 
@@ -14,11 +15,6 @@
 
 static const char GAME_FONT_PATH[] = "assets/fonts/opensans.ttf";
 static const int GAME_FONT_SIZE = 20;
-
-static int grid_sizex;
-static int grid_sizey;
-
-static SDL_Texture *menualpha = NULL;
 
 GameEvent Game_ParseEvent(SDL_Event ev) {
    switch (ev.type) {
@@ -80,13 +76,7 @@ GameState Game_StateMachine(GameVars *game_vars) {
          }
          return STATE_MAIN_MENU;
       case STATE_MAIN_MENU:
-         SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
-         SDL_RenderClear(game_vars->renderer);
-         Game_SetFontText(game_vars->game_font, "Főmenü");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
-         Game_SetFontText(game_vars->game_font, "ESC: Kilépés, SPACE: Új élettér, LE: Élettér betöltése");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
-         SDL_RenderPresent(game_vars->renderer);
+         menu_render_main(game_vars);
          while (SDL_PollEvent(&ev)) {
             gameev = Game_ParseEvent(ev);
             switch (gameev) {
@@ -94,8 +84,8 @@ GameState Game_StateMachine(GameVars *game_vars) {
                case EV_KEY_ESC:
                   return STATE_EXIT;
                case EV_KEY_SPACE:
-                  grid_sizex = GRID_SIZE_DEFAULT;
-                  grid_sizey = GRID_SIZE_DEFAULT;
+                   game_vars->grid_size.x = GRID_SIZE_DEFAULT;
+                   game_vars->grid_size.y = GRID_SIZE_DEFAULT;
                   return STATE_NEW_MENU;
                case EV_KEY_DOWN:
                   return STATE_LOAD_MENU;
@@ -105,13 +95,7 @@ GameState Game_StateMachine(GameVars *game_vars) {
          }
          return game_vars->state;
       case STATE_LOAD_MENU:
-         SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
-         SDL_RenderClear(game_vars->renderer);
-         Game_SetFontText(game_vars->game_font, "Élettér betöltése");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
-         Game_SetFontText(game_vars->game_font, "ESC: Főmenü, SPACE: Élettér betöltése");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
-         SDL_RenderPresent(game_vars->renderer);
+         menu_render_load(game_vars);
          while (SDL_PollEvent(&ev)) {
             gameev = Game_ParseEvent(ev);
             switch (gameev) {
@@ -131,22 +115,7 @@ GameState Game_StateMachine(GameVars *game_vars) {
          }
          return game_vars->state;
       case STATE_NEW_MENU:
-         SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
-         SDL_RenderClear(game_vars->renderer);
-         Game_SetFontText(game_vars->game_font, "Új élettér");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
-         Game_SetFontText(game_vars->game_font, "ESC: Főmenü, SPACE: Szimuláció indítása");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
-         Game_SetFontText(game_vars->game_font, "BAL/JOBB: Grid szélessége, FEL/LE: Grid magassága");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-32);
-         char buf[128];
-         sprintf(buf, "Szélesség: %d", grid_sizex);
-         Game_SetFontText(game_vars->game_font, buf);
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h/2-game_vars->game_font->texture_size.y/2);
-         sprintf(buf, "Magasság: %d", grid_sizey);
-         Game_SetFontText(game_vars->game_font, buf);
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h/2+game_vars->game_font->texture_size.y/2);
-         SDL_RenderPresent(game_vars->renderer);
+         menu_render_new(game_vars);
          while (SDL_PollEvent(&ev)) {
             gameev = Game_ParseEvent(ev);
             switch (gameev) {
@@ -156,24 +125,24 @@ GameState Game_StateMachine(GameVars *game_vars) {
                   return STATE_MAIN_MENU;
                case EV_KEY_SPACE:
                   if (game_vars->grid == NULL) {
-                     game_vars->grid = grid_new(game_vars->renderer,  grid_sizex, grid_sizey);
+                     game_vars->grid = grid_new(game_vars->renderer,   game_vars->grid_size.x,  game_vars->grid_size.y);
                      grid_init(game_vars->grid);
                   }
                   return STATE_SIM_PAUSED;
                case EV_KEY_UP:
-                  grid_sizey++;
+                  game_vars->grid_size.y++;
                   break;
                case EV_KEY_DOWN:
-                  if (grid_sizey > 1) {
-                     grid_sizey--;
+                  if (game_vars->grid_size.y > 1) {
+                     game_vars->grid_size.y--;
                   }
                   break;
                case EV_KEY_RIGHT:
-                  grid_sizex++;
+                  game_vars->grid_size.x++;
                   break;
                case EV_KEY_LEFT:
-                  if (grid_sizex > 1) {
-                     grid_sizex--;
+                  if (game_vars->grid_size.x > 1) {
+                     game_vars->grid_size.x--;
                   }
                   break;
                default:
@@ -250,18 +219,7 @@ GameState Game_StateMachine(GameVars *game_vars) {
          }
          return game_vars->state;
       case STATE_SIM_MENU:
-         SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
-         SDL_RenderClear(game_vars->renderer);
-         grid_render(game_vars->renderer, game_vars->grid);
-         SDL_Rect itemrect = {0, 0, game_vars->screen->w, game_vars->screen->h};
-         SDL_RenderCopy(game_vars->renderer, menualpha, NULL, &itemrect);
-         Game_SetFontText(game_vars->game_font, "Szimuláció menü");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
-         Game_SetFontText(game_vars->game_font, "Q: Kilépés a főmenübe, ESC: Vissza a szimulációhoz");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
-         Game_SetFontText(game_vars->game_font, "LE: Szimuláció mentése, FEL: Szimuláció beállításai");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-32);
-         SDL_RenderPresent(game_vars->renderer);
+         menu_render_sim_menu(game_vars);
          while (SDL_PollEvent(&ev)) {
             gameev = Game_ParseEvent(ev);
             switch (gameev) {
@@ -285,13 +243,7 @@ GameState Game_StateMachine(GameVars *game_vars) {
          }
          return game_vars->state;
       case STATE_SIM_SETTINGS:
-         SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
-         SDL_RenderClear(game_vars->renderer);
-         Game_SetFontText(game_vars->game_font, "Szimuláció beállításai");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
-         Game_SetFontText(game_vars->game_font, "ESC: Vissza a Szimuláció menübe");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
-         SDL_RenderPresent(game_vars->renderer);
+         menu_render_settings(game_vars);
          while (SDL_PollEvent(&ev)) {
             gameev = Game_ParseEvent(ev);
             switch (gameev) {
@@ -305,13 +257,7 @@ GameState Game_StateMachine(GameVars *game_vars) {
          }
          return game_vars->state;
       case STATE_SIM_SAVE:
-         SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
-         SDL_RenderClear(game_vars->renderer);
-         Game_SetFontText(game_vars->game_font, "Szimuláció mentése");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
-         Game_SetFontText(game_vars->game_font, "ESC: Vissza a Szimuláció menübe");
-         Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
-         SDL_RenderPresent(game_vars->renderer);
+         menu_render_save(game_vars);
          while (SDL_PollEvent(&ev)) {
             gameev = Game_ParseEvent(ev);
             switch (gameev) {
@@ -403,8 +349,7 @@ int Game_Init_All(GameVars *game_vars, const char *title) {
    }
 
    game_vars->screen = SDL_GetWindowSurface(game_vars->window);
-
-   menualpha = Game_Load_Texture("assets/texture/menualpha.png", game_vars->renderer);
+   menu_init(game_vars);
    return 1;
 }
 
@@ -425,10 +370,7 @@ void Game_Destroy_All(GameVars *game_vars) {
       grid_free(game_vars->grid);
       game_vars->grid = NULL;
    }
-   if (menualpha != NULL) {
-      SDL_DestroyTexture(menualpha);
-      menualpha = NULL;
-   }
+   menu_destroy();
 }
 
 SDL_Texture* Game_Load_Texture(const char *path, SDL_Renderer *renderer) {

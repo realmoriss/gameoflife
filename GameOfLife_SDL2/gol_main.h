@@ -97,6 +97,7 @@ typedef struct t_game_vars {
    GameFont *game_font;       /**< A jatekban hasznalt betutipusra mutato pointer */
    Grid *grid;                /**< A gridre mutato pointer */
    GameState state;           /**< A jatek aktualis allapota */
+   Vec2D grid_size;           /**< A felhasznalo altal beallitott grid meret */
 } GameVars;
 
 /** \brief Feldolgozza az SDL_Event-et es visszaadja az esemeny azonositojat
