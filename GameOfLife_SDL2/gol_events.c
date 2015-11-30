@@ -1,16 +1,7 @@
-#include <stdio.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
 #include "gol_main.h"
 #include "gol_grid.h"
 #include "gol_font.h"
 #include "gol_events.h"
-
-#define __DEBUG__
-
-#ifdef __DEBUG__
-#include "debugmalloc.h"
-#endif // __DEBUG__
 
 static MouseState mouse_state = MOUSESTATE_BOTH_UP;
 

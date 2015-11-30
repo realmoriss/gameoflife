@@ -1,16 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include "gol_grid.h"
 #include "gol_main.h"
-
-#define __DEBUG__
-
-#ifdef __DEBUG__
-#include "debugmalloc.h"
-#endif // __DEBUG__
+#include "gol_grid.h"
 
 int main(int argc, char *argv[])
 {

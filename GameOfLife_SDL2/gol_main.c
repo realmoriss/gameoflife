@@ -1,19 +1,10 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
 #include <SDL_image.h>
-#include "gol_grid.h"
 #include "gol_main.h"
+#include "gol_grid.h"
 #include "gol_font.h"
 #include "gol_events.h"
 #include "gol_render.h"
-
-#define __DEBUG__
-
-#ifdef __DEBUG__
-#include "debugmalloc.h"
-#endif // __DEBUG__
 
 static const char GAME_FONT_PATH[] = "assets/fonts/opensans.ttf";
 static const int GAME_FONT_SIZE = 20;

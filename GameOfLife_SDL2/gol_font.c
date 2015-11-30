@@ -1,14 +1,8 @@
-#include <stdio.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
 #include "gol_main.h"
 #include "gol_font.h"
 
-#define __DEBUG__
-
-#ifdef __DEBUG__
-#include "debugmalloc.h"
-#endif // __DEBUG__
+static const char GAME_FONT_PATH[] = "assets/fonts/opensans.ttf";
+static const int GAME_FONT_SIZE = 20;
 
 GameFont *Game_LoadFont(SDL_Renderer *renderer, const char* path, const char* init_str, const SDL_Color color, const int text_size) {
    GameFont *gamefont = malloc(sizeof(GameFont));

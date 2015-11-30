@@ -1,15 +1,6 @@
-#include <stdio.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
 #include "gol_main.h"
 #include "gol_grid.h"
 #include "gol_font.h"
-
-#define __DEBUG__
-
-#ifdef __DEBUG__
-#include "debugmalloc.h"
-#endif // __DEBUG__
 
 static const char CELL_TEXTURE_ALIVE_PATH[] = "assets/texture/cell_rect.png";
 static SDL_Texture *cell_texture_alive = NULL;

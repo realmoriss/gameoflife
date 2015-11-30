@@ -1,15 +1,6 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 #include "gol_grid.h"
-
-#define __DEBUG__
-
-#ifdef __DEBUG__
-#include "debugmalloc.h"
-#endif // __DEBUG__
 
 static const int GRID_CAP_OVERHEAD = 32;
 const int GRID_SIZE_DEFAULT = 255;

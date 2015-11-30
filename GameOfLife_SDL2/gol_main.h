@@ -1,5 +1,14 @@
 #ifndef __GOL_MAIN_H_INCLUDED__
 #define __GOL_MAIN_H_INCLUDED__
+#include <SDL.h>
+#include <SDL_ttf.h>
+
+#define __DEBUG__
+
+#ifdef __DEBUG__
+#include <stdio.h>
+#include "debugmalloc.h"
+#endif // __DEBUG__
 
 /** \brief A jatek allapotai
  */
