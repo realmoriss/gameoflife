@@ -1,5 +1,5 @@
-#ifndef __GOL_GRID_INCLUDED__
-#define __GOL_GRID_INCLUDED__
+#ifndef __GOL_GRID_H_INCLUDED__
+#define __GOL_GRID_H_INCLUDED__
 
 #include "gol_main.h"
 
@@ -13,7 +13,7 @@ const int GRID_SIZE_DEFAULT;  /**< A grid alapertelmezett merete */
  * \return Grid* a gridre mutato pointer (Hiba eseten NULL)
  *
  */
-Grid *grid_new(SDL_Renderer *renderer, const int size_startx, const int size_starty);
+Grid *grid_new(const int size_startx, const int size_starty);
 
 /** \brief Felszabaditja a gridet
  *
@@ -86,15 +86,6 @@ void grid_cell_next_state(Grid *grid, int x, int y);
  */
 void grid_logic(Grid *grid);
 
-/** \brief Megjeleniti a gridet a kepernyon
- *
- * \param renderer SDL_Renderer* a rendererre mutato pointer
- * \param grid Grid* a gridre mutato pointer
- * \return void
- *
- */
-void grid_render(SDL_Renderer *renderer, Grid *grid);
-
 /** \brief Beallitja a parameterkent megadott koordinatakon talalhato elem erteket elore
  *
  * \param grid Grid* a gridre mutato pointer
@@ -115,4 +106,4 @@ void grid_set_alive(Grid *grid, int x, int y);
  */
 void grid_set_dead(Grid *grid, int x, int y);
 
-#endif // __GOL_GRID_INCLUDED__
+#endif // __GOL_GRID_H_INCLUDED__

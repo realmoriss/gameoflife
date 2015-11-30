@@ -1,31 +1,67 @@
 #include <stdio.h>
 #include <SDL.h>
-#include <SDL_TTF.h>
+#include <SDL_ttf.h>
 #include "gol_main.h"
 #include "gol_grid.h"
+#include "gol_font.h"
 
-//#define __DEBUG__
+#define __DEBUG__
 
 #ifdef __DEBUG__
 #include "debugmalloc.h"
 #endif // __DEBUG__
 
-static char buf[128];
-static SDL_Texture *menubg = NULL;
-static const char MENU_BG_TEXTURE_PATH[] = "assets/texture/menualpha.png";
+static const char CELL_TEXTURE_ALIVE_PATH[] = "assets/texture/cell_rect.png";
+static SDL_Texture *cell_texture_alive = NULL;
 
-void menu_init(GameVars *game_vars) {
+static const char CELL_TEXTURE_DEAD_PATH[] = "assets/texture/cell_rect_dead.png";
+static SDL_Texture *cell_texture_dead = NULL;
+
+static const char MENU_BG_TEXTURE_PATH[] = "assets/texture/menualpha.png";
+static SDL_Texture *menubg = NULL;
+
+static char buf[128];
+
+void render_init(GameVars *game_vars) {
+   cell_texture_alive = Game_Load_Texture(CELL_TEXTURE_ALIVE_PATH, game_vars->renderer);
+   cell_texture_dead = Game_Load_Texture(CELL_TEXTURE_DEAD_PATH, game_vars->renderer);
    menubg = Game_Load_Texture(MENU_BG_TEXTURE_PATH, game_vars->renderer);
 }
 
-void menu_destroy(void) {
+void render_destroy(void) {
+   if (cell_texture_alive != NULL) {
+      SDL_DestroyTexture(cell_texture_alive);
+      cell_texture_alive = NULL;
+   }
+   if (cell_texture_dead != NULL) {
+      SDL_DestroyTexture(cell_texture_dead);
+      cell_texture_dead = NULL;
+   }
    if (menubg != NULL) {
       SDL_DestroyTexture(menubg);
       menubg = NULL;
    }
 }
 
-void menu_render_main(GameVars *game_vars) {
+void render_grid(GameVars *game_vars) {
+   int i,j;
+   SDL_Rect itemrect;
+   // Az elso ervenyes elem az 1. indexu - a szegely miatt
+   for (i=0; i<game_vars->grid->size_x-1; i++) {
+      for (j=0; j<game_vars->grid->size_y-1; j++) {
+         Cell tmpcell = game_vars->grid->cells[i+1][j+1];
+         if (tmpcell.state) {
+            itemrect = (SDL_Rect){game_vars->cell_size*i, game_vars->cell_size*j, game_vars->cell_size, game_vars->cell_size};
+            SDL_RenderCopy(game_vars->renderer, cell_texture_alive, NULL, &itemrect);
+         } else if (tmpcell.was_alive) {
+            itemrect = (SDL_Rect){game_vars->cell_size*i, game_vars->cell_size*j, game_vars->cell_size, game_vars->cell_size};
+            SDL_RenderCopy(game_vars->renderer, cell_texture_dead, NULL, &itemrect);
+         }
+      }
+   }
+}
+
+void render_menu_main(GameVars *game_vars) {
    SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
    SDL_RenderClear(game_vars->renderer);
    Game_SetFontText(game_vars->game_font, "Főmenü");
@@ -35,7 +71,7 @@ void menu_render_main(GameVars *game_vars) {
    SDL_RenderPresent(game_vars->renderer);
 }
 
-void menu_render_load(GameVars *game_vars) {
+void render_menu_load(GameVars *game_vars) {
    SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
    SDL_RenderClear(game_vars->renderer);
    Game_SetFontText(game_vars->game_font, "Élettér betöltése");
@@ -45,7 +81,7 @@ void menu_render_load(GameVars *game_vars) {
    SDL_RenderPresent(game_vars->renderer);
 }
 
-void menu_render_new(GameVars *game_vars) {
+void render_menu_new(GameVars *game_vars) {
    SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
    SDL_RenderClear(game_vars->renderer);
    Game_SetFontText(game_vars->game_font, "Új élettér");
@@ -63,10 +99,10 @@ void menu_render_new(GameVars *game_vars) {
    SDL_RenderPresent(game_vars->renderer);
 }
 
-void menu_render_sim_menu(GameVars *game_vars) {
+void render_menu_sim_menu(GameVars *game_vars) {
    SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
    SDL_RenderClear(game_vars->renderer);
-   grid_render(game_vars->renderer, game_vars->grid);
+   render_grid(game_vars);
    SDL_Rect itemrect = {0, 0, game_vars->screen->w, game_vars->screen->h};
    SDL_RenderCopy(game_vars->renderer, menubg, NULL, &itemrect);
    Game_SetFontText(game_vars->game_font, "Szimuláció menü");
@@ -78,7 +114,7 @@ void menu_render_sim_menu(GameVars *game_vars) {
    SDL_RenderPresent(game_vars->renderer);
 }
 
-void menu_render_settings(GameVars *game_vars) {
+void render_menu_settings(GameVars *game_vars) {
    SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
    SDL_RenderClear(game_vars->renderer);
    Game_SetFontText(game_vars->game_font, "Szimuláció beállításai");
@@ -88,7 +124,7 @@ void menu_render_settings(GameVars *game_vars) {
    SDL_RenderPresent(game_vars->renderer);
 }
 
-void menu_render_save(GameVars *game_vars) {
+void render_menu_save(GameVars *game_vars) {
    SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
    SDL_RenderClear(game_vars->renderer);
    Game_SetFontText(game_vars->game_font, "Szimuláció mentése");
@@ -96,4 +132,32 @@ void menu_render_save(GameVars *game_vars) {
    Game_SetFontText(game_vars->game_font, "ESC: Vissza a Szimuláció menübe");
    Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
    SDL_RenderPresent(game_vars->renderer);
+}
+
+void render_sim_paused(GameVars *game_vars) {
+   SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
+   SDL_RenderClear(game_vars->renderer);
+   render_grid(game_vars);
+   Game_SetFontText(game_vars->game_font, "Szimuláció (szünetel)");
+   Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
+   Game_SetFontText(game_vars->game_font, "ESC: Szimuláció menü, SPACE: Szimuláció futtatása");
+   Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
+   Game_SetFontText(game_vars->game_font, "Bal egér: Cella felélesztése, Jobb egér: Cella megölése");
+   Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-32);
+   SDL_RenderPresent(game_vars->renderer);
+
+}
+
+void render_sim_running(GameVars *game_vars) {
+   SDL_SetRenderDrawColor(game_vars->renderer, 0x00, 0x00, 0x00, 0xFF);
+   SDL_RenderClear(game_vars->renderer);
+   render_grid(game_vars);
+   Game_SetFontText(game_vars->game_font, "Szimuláció (fut)");
+   Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, 8);
+   Game_SetFontText(game_vars->game_font, "ESC: Szimuláció menü, SPACE: Szimuláció szüneteltetése");
+   Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-8);
+   Game_SetFontText(game_vars->game_font, "Bal egér: Cella felélesztése, Jobb egér: Cella megölése");
+   Game_RenderFont(game_vars->game_font, game_vars->screen->w/2-game_vars->game_font->texture_size.x/2, game_vars->screen->h-game_vars->game_font->texture_size.y-32);
+   SDL_RenderPresent(game_vars->renderer);
+
 }

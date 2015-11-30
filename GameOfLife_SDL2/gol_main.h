@@ -1,5 +1,5 @@
-#ifndef GOL_MAIN_H_INCLUDED
-#define GOL_MAIN_H_INCLUDED
+#ifndef __GOL_MAIN_H_INCLUDED__
+#define __GOL_MAIN_H_INCLUDED__
 
 /** \brief A jatek allapotai
  */
@@ -17,75 +17,46 @@ typedef enum t_game_state {
    STATE_INVALID        /**< A program veget jelzo allapot */
 } GameState;
 
-/** \brief A felhasznalo altal generalt esemenyek
- */
-typedef enum t_game_event {
-   EV_EXIT,             /**< Kilepesi esemeny */
-   EV_MOUSE_L_D,        /**< Bal egergomb lenyomasa */
-   EV_MOUSE_L_U,        /**< Bal egergomb felengedese */
-   EV_MOUSE_R_D,        /**< Jobb egergomb lenyomasa */
-   EV_MOUSE_R_U,        /**< Jobb egergomb felengedese */
-   EV_MOUSE_MOTION,     /**< Eger mozgatasa */
-   EV_KEY_ESC,          /**< ESCAPE gomb megnyomasa */
-   EV_KEY_SPACE,        /**< Szokoz megnyomasa */
-   EV_KEY_UP,           /**< Fel gomb megnyomasa */
-   EV_KEY_DOWN,         /**< Le gomb megnyomasa */
-   EV_KEY_LEFT,         /**< Balra gomb megnyomasa */
-   EV_KEY_RIGHT,        /**< Jobbra gomb megnyomasa */
-   EV_KEY_Q,            /**< Q billentyu megnyomasa */
-   EV_INVALID           /**< Ervenytelen esemeny */
-} GameEvent;
-
 /** \brief 2 dimenzios vektor struktura
  */
 typedef struct vec_2d {
-    double x;  /**< X koordinata */
-    double y;  /**< Y koordinata */
+   double x;  /**< X koordinata */
+   double y;  /**< Y koordinata */
 } Vec2D;
 
 /** \brief Betutipus struktura az SDL_TTF pluginhez
  */
 typedef struct t_game_font {
-    TTF_Font *font;           /**< A fontra mutato pointer */
-    SDL_Renderer *renderer;   /**< A rendererre mutato pointer */
-    SDL_Texture *texture;     /**< A font texturaja */
-    Vec2D texture_size;       /**< A textura merete */
-    SDL_Color color;          /**< A font szine */
+   TTF_Font *font;           /**< A fontra mutato pointer */
+   SDL_Renderer *renderer;   /**< A rendererre mutato pointer */
+   SDL_Texture *texture;     /**< A font texturaja */
+   Vec2D texture_size;       /**< A textura merete */
+   SDL_Color color;          /**< A font szine */
 } GameFont;
 
 /** \brief A cella allapotai
  */
 typedef enum t_cell_state {
-    dead = 0,     /**< Halott cella */
-    alive = 1     /**< Elo cella */
+   dead = 0,     /**< Halott cella */
+   alive = 1     /**< Elo cella */
 } CellState;
 
 /** \brief A cella allapotat tarolo struktura
  */
 typedef struct t_cell {
-    CellState state;       /**< A cella aktualis allapota */
-    CellState next_state;  /**< A cella kovetkezo allapota */
-    CellState was_alive;   /**< A cella elt-e mar */
+   CellState state;       /**< A cella aktualis allapota */
+   CellState next_state;  /**< A cella kovetkezo allapota */
+   CellState was_alive;   /**< A cella elt-e mar */
 } Cell;
-
-/** \brief A cella texturajat tarolo struktura
- */
-typedef struct t_cell_texture {
-    SDL_Texture* texture;  /**< A texturara mutato pointer */
-    Vec2D texture_size;    /**< A textura merete */
-} CellTexture;
 
 /** \brief A gridet tarolo struktura
  */
 typedef struct t_grid {
-    int size_x;                     /**< A grid szelessege */
-    int size_y;                     /**< A grid magassaga */
-    int cap_x;                      /**< A grid maximalis szelessege */
-    int cap_y;                      /**< A grid maximalis magassaga */
-    Cell **cells;                   /**< A cellakat tarolo matrix */
-    int cell_size;                  /**< A cellak merete pixelben */
-    CellTexture cell_texture;       /**< Az elo cellak texturaja */
-    CellTexture deadcell_texture;   /**< A halott cellak texturaja */
+   int size_x;                     /**< A grid szelessege */
+   int size_y;                     /**< A grid magassaga */
+   int cap_x;                      /**< A grid maximalis szelessege */
+   int cap_y;                      /**< A grid maximalis magassaga */
+   Cell **cells;                   /**< A cellakat tarolo matrix */
 } Grid;
 
 /** \brief A jatek fo valtozoi
@@ -98,15 +69,8 @@ typedef struct t_game_vars {
    Grid *grid;                /**< A gridre mutato pointer */
    GameState state;           /**< A jatek aktualis allapota */
    Vec2D grid_size;           /**< A felhasznalo altal beallitott grid meret */
+   int cell_size;             /**< A cellak merete pixelben */
 } GameVars;
-
-/** \brief Feldolgozza az SDL_Event-et es visszaadja az esemeny azonositojat
- *
- * \param ev SDL_Event Az esemeny valtozo
- * \return GameEvent Az esemenyazonosito
- *
- */
-GameEvent Game_ParseEvent(SDL_Event ev);
 
 /** \brief A jatekot vezerlo allapotgep
  *
@@ -142,43 +106,4 @@ void Game_Destroy_All(GameVars *game_vars);
  */
 SDL_Texture* Game_Load_Texture(const char *path, SDL_Renderer *renderer);
 
-/** \brief Betolti a parameterkent megadott helyrol a TTF formatumu fontot
- *
- * \param renderer SDL_Renderer* A rendererre mutato poitner amin a font megjelenik
- * \param path const char* A font eleresi utvonala
- * \param init_str const char* A font szovegenek kezdoerteke (UTF-8 kodolassal)
- * \param color const SDL_Color A font szine
- * \param text_size const int A font merete pontban
- * \return GameFont* A fontra mutato pointer
- *
- */
-GameFont *Game_LoadFont(SDL_Renderer *renderer, const char *path, const char *init_str, const SDL_Color color, const int text_size);
-
-/** \brief A fontot rendereli a megadott koordinatakon (UTF-8 kodolassal)
- *
- * \param game_font GameFont* A fontra mutato pointer
- * \param x int Az x koordinata
- * \param y int Az y koordinata
- * \return void
- *
- */
-void Game_RenderFont(GameFont *game_font, int x, int y);
-
-/** \brief Beallitja egy font szoveget
- *
- * \param gamefont GameFont* A fontra mutato pointer
- * \param str const char* A beallitando szoveg (UTF-8 kodolassal)
- * \return int
- *
- */
-int Game_SetFontText(GameFont *gamefont, const char* str);
-
-/** \brief Felszabaditja a fontot
- *
- * \param gamefont GameFont* A fontra mutato pointer
- * \return void
- *
- */
-void Game_FreeFont(GameFont *gamefont);
-
-#endif // GOL_MAIN_H_INCLUDED
+#endif // __GOL_MAIN_H_INCLUDED__

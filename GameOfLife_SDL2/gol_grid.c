@@ -5,21 +5,16 @@
 #include <SDL_ttf.h>
 #include "gol_grid.h"
 
-//#define __DEBUG__
+#define __DEBUG__
 
 #ifdef __DEBUG__
 #include "debugmalloc.h"
 #endif // __DEBUG__
 
 static const int GRID_CAP_OVERHEAD = 32;
-static const int GRID_CELL_SIZE = 16;
-
 const int GRID_SIZE_DEFAULT = 255;
 
-static const char CELL_TEXTURE_PATH[] = "assets/texture/cell_rect.png";
-static const char DEADCELL_TEXTURE_PATH[] = "assets/texture/cell_rect_dead.png";
-
-Grid *grid_new(SDL_Renderer *renderer, const int size_startx, const int size_starty) {
+Grid *grid_new(const int size_startx, const int size_starty) {
     // Lefoglaljuk a grid valtozot
     Grid *grid = malloc(sizeof(Grid));
 
@@ -58,13 +53,6 @@ Grid *grid_new(SDL_Renderer *renderer, const int size_startx, const int size_sta
         grid->cells[i] = malloc(sizeof(Cell)*grid->cap_y);
     }
 
-    // Cella merete (pixelekben)
-    grid->cell_size = GRID_CELL_SIZE;
-    grid->cell_texture.texture = Game_Load_Texture(CELL_TEXTURE_PATH, renderer);
-    grid->cell_texture.texture_size = (Vec2D){GRID_CELL_SIZE, GRID_CELL_SIZE};
-    grid->deadcell_texture.texture = Game_Load_Texture(DEADCELL_TEXTURE_PATH, renderer);
-    grid->deadcell_texture.texture_size = (Vec2D){GRID_CELL_SIZE, GRID_CELL_SIZE};
-
     return grid;
 }
 
@@ -75,9 +63,6 @@ void grid_free(Grid *grid) {
         free(grid->cells[i]);
     }
     free(grid->cells);
-
-    SDL_DestroyTexture(grid->cell_texture.texture);
-    SDL_DestroyTexture(grid->deadcell_texture.texture);
 
     // Felszabaditjuk a valtozot is
     free(grid);
@@ -187,24 +172,6 @@ void grid_logic(Grid *grid) {
     for (i=1; i<=grid->size_x; i++) {
         for (j=1; j<=grid->size_y; j++) {
             grid->cells[i][j].state = grid->cells[i][j].next_state;
-        }
-    }
-}
-
-void grid_render(SDL_Renderer *renderer, Grid *grid) {
-    int i,j;
-    SDL_Rect itemrect;
-    // Az elso ervenyes elem az 1. indexu - a szegely miatt
-    for (i=0; i<grid->size_x-1; i++) {
-        for (j=0; j<grid->size_y-1; j++) {
-            Cell tmpcell = grid->cells[i+1][j+1];
-            if (tmpcell.state) {
-                itemrect = (SDL_Rect){grid->cell_size*i, grid->cell_size*j, grid->cell_texture.texture_size.x, grid->cell_texture.texture_size.y};
-                SDL_RenderCopy(renderer, grid->cell_texture.texture, NULL, &itemrect);
-            } else if (tmpcell.was_alive) {
-                itemrect = (SDL_Rect){grid->cell_size*i, grid->cell_size*j, grid->cell_texture.texture_size.x, grid->cell_texture.texture_size.y};
-                SDL_RenderCopy(renderer, grid->deadcell_texture.texture, NULL, &itemrect);
-            }
         }
     }
 }
