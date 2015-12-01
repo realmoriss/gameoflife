@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "gol_main.h"
 #include "gol_font.h"
 
@@ -7,9 +8,9 @@ static const int GAME_FONT_SIZE = 20;
 GameFont *Game_LoadFont(SDL_Renderer *renderer, const char* path, const char* init_str, const SDL_Color color, const int text_size) {
    GameFont *gamefont = malloc(sizeof(GameFont));
    if (gamefont == NULL) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "Malloc hiba a font letrehozasa kozben!\n");
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return NULL;
    }
 
@@ -19,9 +20,9 @@ GameFont *Game_LoadFont(SDL_Renderer *renderer, const char* path, const char* in
 
    gamefont->font = TTF_OpenFont(path, text_size);
    if (gamefont->font == NULL) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL_ttf hiba: %s\n", TTF_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       Game_FreeFont(gamefont);
       return NULL;
    }
@@ -50,16 +51,16 @@ int Game_SetFontText(GameFont *gamefont, const char* str) {
    SDL_Surface *surface = NULL;
    surface = TTF_RenderUTF8_Blended(gamefont->font, str, gamefont->color);
    if (surface == NULL) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL_ttf hiba: %s\n", TTF_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
    }
    gamefont->texture = SDL_CreateTextureFromSurface(gamefont->renderer, surface);
    if (gamefont->texture == NULL) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL hiba: %s\n", SDL_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
    }
    gamefont->texture_size = (Vec2D){surface->w, surface->h};

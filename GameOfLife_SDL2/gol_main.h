@@ -3,12 +3,10 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#define __DEBUG__
-
-#ifdef __DEBUG__
+#ifdef NDEBUG
 #include <stdio.h>
 #include "debugmalloc.h"
-#endif // __DEBUG__
+#endif // NDEBUG
 
 /** \brief A jatek allapotai
  */
@@ -26,7 +24,7 @@ typedef enum t_game_state {
    STATE_INVALID        /**< A program veget jelzo allapot */
 } GameState;
 
-/** \brief 2 dimenzios vektor struktura
+/** \brief Ketdimenzios vektor struktura
  */
 typedef struct vec_2d {
    double x;  /**< X koordinata */

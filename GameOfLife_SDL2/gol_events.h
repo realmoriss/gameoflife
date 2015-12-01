@@ -20,6 +20,8 @@ typedef enum t_game_event {
    EV_INVALID           /**< Ervenytelen esemeny */
 } GameEvent;
 
+/** \brief
+ */
 typedef enum t_mouse_state {
    MOUSESTATE_LEFT_DOWN,     /**<  */
    MOUSESTATE_RIGHT_DOWN,    /**<  */

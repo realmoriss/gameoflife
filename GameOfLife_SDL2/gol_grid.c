@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <SDL_image.h>
+#include "gol_main.h"
 #include "gol_grid.h"
 
 static const int GRID_CAP_OVERHEAD = 32;
@@ -10,9 +10,9 @@ Grid *grid_new(const int size_startx, const int size_starty) {
     Grid *grid = malloc(sizeof(Grid));
 
     if (grid == NULL) {
-        #ifdef __DEBUG__
+        #ifdef NDEBUG
         fprintf(stderr, "Malloc hiba a grid letrehozasanal.\n");
-        #endif // __DEBUG__
+        #endif // NDEBUG
         return NULL;
     }
 
@@ -20,9 +20,9 @@ Grid *grid_new(const int size_startx, const int size_starty) {
     if (size_startx < 0) {
         grid->cap_x = GRID_SIZE_DEFAULT + GRID_CAP_OVERHEAD;
         grid->size_x = GRID_SIZE_DEFAULT;
-        #ifdef __DEBUG__
+        #ifdef NDEBUG
         fprintf(stderr, "Figyelmeztetes: Ervenytelen x meretet adtal meg a grid letrehozasanal! Alapertelmezes hasznalata...\n");
-        #endif // __DEBUG__
+        #endif // NDEBUG
     } else {
         grid->cap_x = size_startx + GRID_CAP_OVERHEAD;
         grid->size_x = size_startx;
@@ -30,9 +30,9 @@ Grid *grid_new(const int size_startx, const int size_starty) {
     if (size_starty < 0) {
         grid->cap_y = GRID_SIZE_DEFAULT + GRID_CAP_OVERHEAD;
         grid->size_y = GRID_SIZE_DEFAULT;
-        #ifdef __DEBUG__
+        #ifdef NDEBUG
         fprintf(stderr, "Figyelmeztetes: Ervenytelen y meretet adtal meg a grid letrehozasanal! Alapertelmezes hasznalata...\n");
-        #endif // __DEBUG__
+        #endif // NDEBUG
     } else {
         grid->cap_y = size_starty + GRID_CAP_OVERHEAD;
         grid->size_y = size_starty;
@@ -127,12 +127,13 @@ void grid_set(Grid *grid, const int x, const int y, const Cell cell) {
 }
 
 Cell grid_get(Grid *grid, const int x, const int y) {
-    //
-    if (x >= grid->size_x || y >= grid->size_y || x<0 || y<0) {
-        fprintf(stderr, "Figyelmeztetes (grid_get): rossz indexet adtal meg! A fuggveny ures cellaval ter vissza!");
-        return (Cell){dead, dead, dead};
-    }
-    return grid->cells[x+1][y+1];
+   if (x >= grid->size_x || y >= grid->size_y || x<0 || y<0) {
+      #ifdef NDEBUG
+      fprintf(stderr, "Figyelmeztetes (grid_get): rossz indexet adtal meg! A fuggveny ures cellaval ter vissza!");
+      #endif // NDEBUG
+      return (Cell){dead, dead, dead};
+   }
+   return grid->cells[x+1][y+1];
 }
 
 void grid_cell_next_state(Grid *grid, int x, int y) {

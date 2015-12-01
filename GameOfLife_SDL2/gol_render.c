@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "gol_main.h"
 #include "gol_grid.h"
 #include "gol_font.h"

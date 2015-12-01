@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-   #ifdef __DEBUG__
+   #ifdef NDEBUG
    debugmalloc_naplofajl("debug_gol.txt");
-   #endif // __DEBUG__
+   #endif // NDEBUG
 
    // A jatek fobb valtozoit tartalmazo struktura
    GameVars game_vars;
@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
          quit = 1;
       }
    }
-   #ifdef __DEBUG__
+   #ifdef NDEBUG
    debugmalloc_dump();
-   #endif // __DEBUG__
+   #endif // NDEBUG
    return 0;
 }

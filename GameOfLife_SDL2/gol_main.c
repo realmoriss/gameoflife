@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <SDL_image.h>
 #include "gol_main.h"
 #include "gol_grid.h"
@@ -16,9 +15,9 @@ GameState Game_StateMachine(GameVars *game_vars) {
    switch (game_vars->state) {
       case STATE_INIT:
          if (!Game_Init_All(game_vars, "Game of Life")) {
-            #ifdef __DEBUG__
+            #ifdef NDEBUG
             fprintf(stderr, "Init hiba, kilepes...\n");
-            #endif // __DEBUG__
+            #endif // NDEBUG
             return STATE_EXIT;
          }
          return STATE_MAIN_MENU;
@@ -66,28 +65,28 @@ int Game_Init_All(GameVars *game_vars, const char *title) {
    game_vars->cell_size = CEL_INIT_SIZE;
 
    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL hiba: %s\n", SDL_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
    }
    if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1" )) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL figyelmeztetes: a linearis textura szures nem lett aktivalva\n");
-      #endif // __DEBUG__
+      #endif // NDEBUG
    }
    game_vars->window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_INIT_W, SCREEN_INIT_H, SDL_WINDOW_SHOWN|SDL_WINDOW_FULLSCREEN_DESKTOP);
    if (game_vars->window == NULL) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL hiba: %s\n", SDL_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
    }
    game_vars->renderer = SDL_CreateRenderer(game_vars->window, -1, SDL_RENDERER_ACCELERATED);
    if (game_vars->renderer == NULL) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL hiba: %s\n", SDL_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
    }
    //Initialize renderer color
@@ -95,22 +94,22 @@ int Game_Init_All(GameVars *game_vars, const char *title) {
    //Initialize PNG loading
    int imgFlags = IMG_INIT_PNG;
    if (!( IMG_Init( imgFlags ) & imgFlags )) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL_image hiba: %s\n", IMG_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
    }
    if (TTF_Init() == -1) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL_ttf hiba: %s\n", TTF_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
    }
    game_vars->game_font = Game_LoadFont(game_vars->renderer, GAME_FONT_PATH, "FONT LOADED", (SDL_Color){0xFF, 0xFF, 0xFF, 0xFF}, GAME_FONT_SIZE);
    if (game_vars->game_font == NULL) {
-      #ifdef __DEBUG__
+      #ifdef NDEBUG
       fprintf(stderr, "SDL_ttf hiba: %s\n", TTF_GetError());
-      #endif // __DEBUG__
+      #endif // NDEBUG
       return 0;
 
    }
@@ -144,11 +143,15 @@ SDL_Texture* Game_Load_Texture(const char *path, SDL_Renderer *renderer) {
 	SDL_Texture* texture = NULL;
 	SDL_Surface* imgSurface = IMG_Load(path);
 	if (imgSurface == NULL) {
-		fprintf(stderr, "SDL_image Error: %s\n", IMG_GetError());
+      #ifdef NDEBUG
+      fprintf(stderr, "SDL_image Error: %s\n", IMG_GetError());
+      #endif // NDEBUG
 	} else {
         texture = SDL_CreateTextureFromSurface(renderer, imgSurface);
 		if (texture == NULL) {
+		   #ifdef NDEBUG
 			fprintf(stderr, "SDL Error: %s\n", SDL_GetError());
+         #endif // NDEBUG
 		}
 		SDL_FreeSurface(imgSurface);
 	}

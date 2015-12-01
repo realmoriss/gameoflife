@@ -1,8 +1,6 @@
 #ifndef __GOL_GRID_H_INCLUDED__
 #define __GOL_GRID_H_INCLUDED__
 
-#include "gol_main.h"
-
 const int GRID_SIZE_DEFAULT;  /**< A grid alapertelmezett merete */
 
 /** \brief Letrehoz egy uj gridet es visszaadja a ra mutato pointert
