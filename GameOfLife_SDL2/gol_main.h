@@ -8,6 +8,8 @@
 #include "debugmalloc.h"
 #endif // NDEBUG
 
+#define SAVENAME_LENGTH 128
+
 /** \brief A jatek allapotai
  */
 typedef enum t_game_state {
@@ -66,6 +68,14 @@ typedef struct t_grid {
    Cell **cells;                   /**< A cellakat tarolo matrix */
 } Grid;
 
+/** \brief
+ */
+typedef struct t_settings {
+   int cell_size;                      /**<  */
+   time_t save_modified;               /**<  */
+   char save_name[SAVENAME_LENGTH];    /**<  */
+} Settings;
+
 /** \brief A jatek fo valtozoi
  */
 typedef struct t_game_vars {
@@ -76,7 +86,7 @@ typedef struct t_game_vars {
    Grid *grid;                /**< A gridre mutato pointer */
    GameState state;           /**< A jatek aktualis allapota */
    Vec2D grid_size;           /**< A felhasznalo altal beallitott grid meret */
-   int cell_size;             /**< A cellak merete pixelben */
+   Settings settings;         /**<  */
 } GameVars;
 
 /** \brief A jatekot vezerlo allapotgep

@@ -46,6 +46,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="gol_events.h" />
+		<Unit filename="gol_file.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gol_file.h" />
 		<Unit filename="gol_font.c">
 			<Option compilerVar="CC" />
 		</Unit>

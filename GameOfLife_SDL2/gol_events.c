@@ -1,9 +1,12 @@
+#include <time.h>
 #include "gol_main.h"
 #include "gol_grid.h"
+#include "gol_file.h"
 #include "gol_font.h"
 #include "gol_events.h"
 
 static MouseState mouse_state = MOUSESTATE_BOTH_UP;
+static const char SAVE_FILE_NAME[] = "saves/grid.sav";
 
 GameEvent events_parse(SDL_Event *ev) {
    switch (ev->type) {
@@ -42,8 +45,17 @@ GameEvent events_parse(SDL_Event *ev) {
                   mouse_state = MOUSESTATE_RIGHT_DOWN;
                }
                return EV_MOUSE_R_D;
+            default:
+               break;
          }
-      break;
+         break;
+      case SDL_MOUSEWHEEL:
+         if (ev->wheel.y > 0) {
+            return EV_MWHEELUP;
+         } else if (ev->wheel.y < 0) {
+            return EV_MWHEELDOWN;
+         }
+         break;
       case SDL_MOUSEBUTTONUP:
          switch (ev->button.button) {
             case SDL_BUTTON_LEFT:
@@ -97,6 +109,7 @@ GameState events_menu_load(GameVars *game_vars) {
             if (game_vars->grid == NULL) {
                game_vars->grid = grid_new(-1, -1);
                grid_init(game_vars->grid);
+               file_load_grid(SAVE_FILE_NAME, game_vars);
             }
             return STATE_SIM_PAUSED;
          default:
@@ -195,6 +208,9 @@ GameState events_menu_save(GameVars *game_vars) {
             return STATE_EXIT;
          case EV_KEY_ESC:
             return STATE_SIM_MENU;
+         case EV_KEY_SPACE:
+            file_save_grid(SAVE_FILE_NAME, game_vars);
+            game_vars->settings.save_modified = time(0);
          default:
             break;
       }
@@ -213,27 +229,39 @@ GameState events_sim_paused(GameVars* game_vars) {
             return STATE_SIM_MENU;
          case EV_KEY_SPACE:
             return STATE_SIM_RUNNING;
+         case EV_KEY_RIGHT:
+            grid_logic(game_vars->grid);
+            break;
          case EV_MOUSE_L_D:
             if (mouse_state == MOUSESTATE_LEFT_DOWN) {
-               grid_set_alive(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+               grid_set_alive(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
             }
             break;
          case EV_MOUSE_R_D:
             if (mouse_state == MOUSESTATE_RIGHT_DOWN) {
-               grid_set_dead(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+               grid_set_dead(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
             }
             break;
          case EV_MOUSE_MOTION:
             switch (mouse_state) {
                case MOUSESTATE_LEFT_DOWN:
-                  grid_set_alive(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+                  grid_set_alive(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
                   break;
                case MOUSESTATE_RIGHT_DOWN:
-                  grid_set_dead(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+                  grid_set_dead(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
                   break;
                default:
                   break;
             }
+            break;
+         case EV_MWHEELUP:
+            game_vars->settings.cell_size++;
+            break;
+         case EV_MWHEELDOWN:
+            if (game_vars->settings.cell_size > 1) {
+               game_vars->settings.cell_size--;
+            }
+            break;
          default:
             break;
       }
@@ -253,22 +281,31 @@ GameState events_sim_running(GameVars* game_vars) {
          case EV_KEY_SPACE:
             return STATE_SIM_PAUSED;
          case EV_MOUSE_L_D:
-            grid_set_alive(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+            grid_set_alive(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
             break;
          case EV_MOUSE_R_D:
-            grid_set_dead(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+            grid_set_dead(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
             break;
          case EV_MOUSE_MOTION:
             switch (mouse_state) {
                case MOUSESTATE_LEFT_DOWN:
-                  grid_set_alive(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+                  grid_set_alive(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
                   break;
                case MOUSESTATE_RIGHT_DOWN:
-                  grid_set_dead(game_vars->grid, ev.motion.x/game_vars->cell_size, ev.motion.y/game_vars->cell_size);
+                  grid_set_dead(game_vars->grid, ev.motion.x/game_vars->settings.cell_size, ev.motion.y/game_vars->settings.cell_size);
                   break;
                default:
                   break;
             }
+            break;
+         case EV_MWHEELUP:
+            game_vars->settings.cell_size++;
+            break;
+         case EV_MWHEELDOWN:
+            if (game_vars->settings.cell_size > 1) {
+               game_vars->settings.cell_size--;
+            }
+            break;
          default:
             break;
       }

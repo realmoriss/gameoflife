@@ -1,6 +1,8 @@
 #include <SDL_image.h>
+#include <time.h>
 #include "gol_main.h"
 #include "gol_grid.h"
+#include "gol_file.h"
 #include "gol_font.h"
 #include "gol_events.h"
 #include "gol_render.h"
@@ -9,7 +11,8 @@ static const char GAME_FONT_PATH[] = "assets/fonts/opensans.ttf";
 static const int GAME_FONT_SIZE = 20;
 static const int SCREEN_INIT_W = 800;
 static const int SCREEN_INIT_H = 600;
-static const int CEL_INIT_SIZE = 16;
+static const int CELL_INIT_SIZE = 16;
+static const char FILENAME_SETTINGS[] = "saves/settings.sav";
 
 GameState Game_StateMachine(GameVars *game_vars) {
    switch (game_vars->state) {
@@ -22,6 +25,7 @@ GameState Game_StateMachine(GameVars *game_vars) {
          }
          return STATE_MAIN_MENU;
       case STATE_EXIT:
+         file_save_settings(FILENAME_SETTINGS, game_vars);
          Game_Destroy_All(game_vars);
          SDL_Quit();
          return STATE_INVALID;
@@ -62,7 +66,11 @@ int Game_Init_All(GameVars *game_vars, const char *title) {
    game_vars->game_font = NULL;
    game_vars->grid = NULL;
    game_vars->state = STATE_INIT;
-   game_vars->cell_size = CEL_INIT_SIZE;
+   if (file_load_settings(FILENAME_SETTINGS, game_vars) != 0) {
+      game_vars->settings.cell_size = CELL_INIT_SIZE;
+      game_vars->settings.save_modified = time(NULL);
+      game_vars->settings.save_name[0] = '\0';
+   }
 
    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
       #ifdef NDEBUG
@@ -75,7 +83,11 @@ int Game_Init_All(GameVars *game_vars, const char *title) {
       fprintf(stderr, "SDL figyelmeztetes: a linearis textura szures nem lett aktivalva\n");
       #endif // NDEBUG
    }
+   #ifdef NDEBUG
+   game_vars->window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_INIT_W, SCREEN_INIT_H, SDL_WINDOW_SHOWN);
+   #else
    game_vars->window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_INIT_W, SCREEN_INIT_H, SDL_WINDOW_SHOWN|SDL_WINDOW_FULLSCREEN_DESKTOP);
+   #endif // NDEBUG
    if (game_vars->window == NULL) {
       #ifdef NDEBUG
       fprintf(stderr, "SDL hiba: %s\n", SDL_GetError());

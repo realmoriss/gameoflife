@@ -129,7 +129,7 @@ void grid_set(Grid *grid, const int x, const int y, const Cell cell) {
 Cell grid_get(Grid *grid, const int x, const int y) {
    if (x >= grid->size_x || y >= grid->size_y || x<0 || y<0) {
       #ifdef NDEBUG
-      fprintf(stderr, "Figyelmeztetes (grid_get): rossz indexet adtal meg! A fuggveny ures cellaval ter vissza!");
+      fprintf(stderr, "Figyelmeztetes (grid_get): rossz indexet adtal meg! A fuggveny ures cellaval ter vissza!\n");
       #endif // NDEBUG
       return (Cell){dead, dead, dead};
    }
@@ -169,16 +169,11 @@ void grid_logic(Grid *grid) {
 }
 
 void grid_set_alive(Grid *grid, int x, int y) {
-   Cell tmpcell;
-   tmpcell = grid_get(grid, x, y);
-   tmpcell.state = alive;
-   tmpcell.was_alive = alive;
+   Cell tmpcell = (Cell){alive, dead, alive};
    grid_set(grid, x, y, tmpcell);
 }
 
 void grid_set_dead(Grid *grid, int x, int y) {
-   Cell tmpcell;
-   tmpcell = grid_get(grid, x, y);
-   tmpcell.state = dead;
+   Cell tmpcell = (Cell){alive, dead, alive};
    grid_set(grid, x, y, tmpcell);
 }

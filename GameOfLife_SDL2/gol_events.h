@@ -17,6 +17,8 @@ typedef enum t_game_event {
    EV_KEY_LEFT,         /**< Balra gomb megnyomasa */
    EV_KEY_RIGHT,        /**< Jobbra gomb megnyomasa */
    EV_KEY_Q,            /**< Q billentyu megnyomasa */
+   EV_MWHEELUP,         /**< Egergorgo felfele gorgetese */
+   EV_MWHEELDOWN,       /**< Egergorgo lefele gorgetese */
    EV_INVALID           /**< Ervenytelen esemeny */
 } GameEvent;
 
