@@ -255,11 +255,13 @@ GameState events_sim_paused(GameVars *game_vars) {
 			}
 			break;
 		case EV_MWHEELUP:
-			game_vars->settings.cell_size++;
+			if (game_vars->settings.cell_size < 1024) {
+            game_vars->settings.cell_size*=2;
+			}
 			break;
 		case EV_MWHEELDOWN:
 			if (game_vars->settings.cell_size > 1) {
-				game_vars->settings.cell_size--;
+				game_vars->settings.cell_size/=2;
 			}
 			break;
 		default:
@@ -299,11 +301,13 @@ GameState events_sim_running(GameVars *game_vars) {
 			}
 			break;
 		case EV_MWHEELUP:
-			game_vars->settings.cell_size++;
+			if (game_vars->settings.cell_size < 1024) {
+            game_vars->settings.cell_size*=2;
+			}
 			break;
 		case EV_MWHEELDOWN:
 			if (game_vars->settings.cell_size > 1) {
-				game_vars->settings.cell_size--;
+				game_vars->settings.cell_size/=2;
 			}
 			break;
 		default:

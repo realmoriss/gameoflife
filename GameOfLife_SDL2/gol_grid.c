@@ -174,6 +174,6 @@ void grid_set_alive(Grid *grid, int x, int y) {
 }
 
 void grid_set_dead(Grid *grid, int x, int y) {
-	Cell tmpcell = (Cell) {alive, dead, alive};
+	Cell tmpcell = (Cell) {dead, dead, alive};
 	grid_set(grid, x, y, tmpcell);
 }
