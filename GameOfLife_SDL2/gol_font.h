@@ -30,7 +30,7 @@ void Game_RenderFont(GameFont *game_font, int x, int y);
  * \return int
  *
  */
-int Game_SetFontText(GameFont *gamefont, const char* str);
+int Game_SetFontText(GameFont *gamefont, const char *str);
 
 /** \brief Felszabaditja a fontot
  *

@@ -79,7 +79,7 @@ void render_menu_save(GameVars *game_vars);
  * \return void
  *
  */
-void render_sim_paused(GameVars* game_vars);
+void render_sim_paused(GameVars *game_vars);
 
 /** \brief
  *
@@ -87,6 +87,6 @@ void render_sim_paused(GameVars* game_vars);
  * \return void
  *
  */
-void render_sim_running(GameVars* game_vars);
+void render_sim_running(GameVars *game_vars);
 
 #endif // __GOL_RENDER_H_INCLUDED__
