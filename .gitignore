@@ -12,3 +12,6 @@ obj/
 *.depend
 *.layout
 *debug*.txt
+
+# Save files
+saves/
