@@ -23,6 +23,7 @@ typedef enum t_game_state {
 	STATE_SIM_MENU,      /**< A szimulacio menu */
 	STATE_SIM_SETTINGS,  /**< A szimulacio beallitasai menu */
 	STATE_SIM_SAVE,      /**< A grid mentese menu */
+	STATE_SIM_SAVE_CONF,	/**< A grid mentese megerosites menu */
 	STATE_INVALID        /**< A program veget jelzo allapot */
 } GameState;
 
@@ -76,6 +77,11 @@ typedef struct t_settings {
 	char save_name[SAVENAME_LENGTH];    /**<  */
 } Settings;
 
+typedef struct t_window_size {
+	int w;
+	int h;
+} WindowSize;
+
 /** \brief A jatek fo valtozoi
  */
 typedef struct t_game_vars {
@@ -87,6 +93,7 @@ typedef struct t_game_vars {
 	GameState state;           /**< A jatek aktualis allapota */
 	Vec2D grid_size;           /**< A felhasznalo altal beallitott grid meret */
 	Settings settings;         /**<  */
+	WindowSize window_size;			/**<  */
 } GameVars;
 
 /** \brief A jatekot vezerlo allapotgep

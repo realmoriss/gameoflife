@@ -79,6 +79,14 @@ void render_menu_save(GameVars *game_vars);
  * \return void
  *
  */
+void render_menu_save_conf(GameVars *game_vars);
+
+/** \brief
+ *
+ * \param game_vars GameVars*
+ * \return void
+ *
+ */
 void render_sim_paused(GameVars *game_vars);
 
 /** \brief

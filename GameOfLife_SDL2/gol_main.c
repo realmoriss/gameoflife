@@ -47,6 +47,9 @@ GameState Game_StateMachine(GameVars *game_vars) {
 	case STATE_SIM_SAVE:
 		render_menu_save(game_vars);
 		return events_menu_save(game_vars);
+	case STATE_SIM_SAVE_CONF:
+		render_menu_save_conf(game_vars);
+		return events_menu_save(game_vars);
 	case STATE_SIM_PAUSED:
 		render_sim_paused(game_vars);
 		return events_sim_paused(game_vars);
@@ -84,7 +87,7 @@ int Game_Init_All(GameVars *game_vars, const char *title) {
 #endif // NDEBUG
 	}
 #ifdef NDEBUG
-	game_vars->window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_INIT_W, SCREEN_INIT_H, SDL_WINDOW_SHOWN);
+	game_vars->window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_INIT_W, SCREEN_INIT_H, SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
 #else
 	game_vars->window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_INIT_W, SCREEN_INIT_H, SDL_WINDOW_SHOWN|SDL_WINDOW_FULLSCREEN_DESKTOP);
 #endif // NDEBUG
@@ -94,6 +97,7 @@ int Game_Init_All(GameVars *game_vars, const char *title) {
 #endif // NDEBUG
 		return 0;
 	}
+	SDL_GetWindowSize(game_vars->window, &game_vars->window_size.w, &game_vars->window_size.h);
 	game_vars->renderer = SDL_CreateRenderer(game_vars->window, -1, SDL_RENDERER_ACCELERATED);
 	if (game_vars->renderer == NULL) {
 #ifdef NDEBUG

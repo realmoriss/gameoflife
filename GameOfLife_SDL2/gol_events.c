@@ -67,12 +67,26 @@ GameEvent events_parse(SDL_Event *ev) {
 		}
 	case SDL_MOUSEMOTION:
 		return EV_MOUSE_MOTION;
+	case SDL_WINDOWEVENT:
+		switch (ev->window.event) {
+		case SDL_WINDOWEVENT_SIZE_CHANGED:
+			return EV_RESIZE;
+			break;
+		default:
+			break;
+		}
+		break;
 	case SDL_QUIT:
 		return EV_EXIT;
 	default:
 		return EV_INVALID;
 	}
 	return EV_INVALID;
+}
+
+static void Event_SetWindowSize(GameVars *game_vars, int x, int y) {
+	game_vars->window_size.w = x;
+	game_vars->window_size.h = y;
 }
 
 GameState events_menu_main(GameVars *game_vars) {
@@ -89,6 +103,9 @@ GameState events_menu_main(GameVars *game_vars) {
 			return STATE_NEW_MENU;
 		case EV_KEY_DOWN:
 			return STATE_LOAD_MENU;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
+			break;
 		default:
 			break;
 		}
@@ -112,6 +129,9 @@ GameState events_menu_load(GameVars *game_vars) {
 				file_load_grid(SAVE_FILE_NAME, game_vars);
 			}
 			return STATE_SIM_PAUSED;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
+			break;
 		default:
 			break;
 		}
@@ -150,6 +170,9 @@ GameState events_menu_new(GameVars *game_vars) {
 				game_vars->grid_size.x--;
 			}
 			break;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
+			break;
 		default:
 			break;
 		}
@@ -176,6 +199,9 @@ GameState events_menu_sim_menu(GameVars *game_vars) {
 			return STATE_SIM_SAVE;
 		case EV_KEY_UP:
 			return STATE_SIM_SETTINGS;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
+			break;
 		default:
 			break;
 		}
@@ -192,6 +218,9 @@ GameState events_menu_settings(GameVars *game_vars) {
 			return STATE_EXIT;
 		case EV_KEY_ESC:
 			return STATE_SIM_MENU;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
+			break;
 		default:
 			break;
 		}
@@ -211,6 +240,10 @@ GameState events_menu_save(GameVars *game_vars) {
 		case EV_KEY_SPACE:
 			file_save_grid(SAVE_FILE_NAME, game_vars);
 			game_vars->settings.save_modified = time(0);
+			return STATE_SIM_SAVE_CONF;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
+			break;
 		default:
 			break;
 		}
@@ -256,13 +289,16 @@ GameState events_sim_paused(GameVars *game_vars) {
 			break;
 		case EV_MWHEELUP:
 			if (game_vars->settings.cell_size < 1024) {
-            game_vars->settings.cell_size*=2;
+				game_vars->settings.cell_size*=2;
 			}
 			break;
 		case EV_MWHEELDOWN:
 			if (game_vars->settings.cell_size > 1) {
 				game_vars->settings.cell_size/=2;
 			}
+			break;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
 			break;
 		default:
 			break;
@@ -302,13 +338,16 @@ GameState events_sim_running(GameVars *game_vars) {
 			break;
 		case EV_MWHEELUP:
 			if (game_vars->settings.cell_size < 1024) {
-            game_vars->settings.cell_size*=2;
+				game_vars->settings.cell_size*=2;
 			}
 			break;
 		case EV_MWHEELDOWN:
 			if (game_vars->settings.cell_size > 1) {
 				game_vars->settings.cell_size/=2;
 			}
+			break;
+		case EV_RESIZE:
+         Event_SetWindowSize(game_vars, ev.window.data1, ev.window.data2);
 			break;
 		default:
 			break;
