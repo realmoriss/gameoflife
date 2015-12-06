@@ -5,6 +5,9 @@ obj/
 *.obj
 *.elf
 
+# Binary files
+bin/
+
 # Debug files
 *.dSYM/
 
