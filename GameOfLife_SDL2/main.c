@@ -1,26 +1,40 @@
+/**********************************
+ * Project:         Game of Life
+ * Filename:        main.c
+ * Description:     A program main fuggvenye
+ *
+ * Copyright Telek Istvan 2015
+ *
+ * TODO:
+ * - Beallitasok menu hasznalata:
+ *  - Grid textura modositasa
+ *  - Mentes fajlnevenek modositasa
+ *  - Szimulacio sebessegenek modositasa
+ *
+ **********************************/
 #include "gol_main.h"
 #include "gol_grid.h"
 
 int main(int argc, char *argv[]) {
 #ifdef NDEBUG
-	debugmalloc_naplofajl("debug_gol.txt");
+    debugmalloc_naplofajl("debug_gol.txt");
 #endif // NDEBUG
 
-	// A jatek fobb valtozoit tartalmazo struktura
-	GameVars game_vars;
-	game_vars.state = STATE_INIT;
+    // A jatek fobb valtozoit tartalmazo struktura
+    GameVars game_vars;
+    game_vars.state = STATE_INIT;
 
-	int quit = 0;
-	while (!quit) {
-		// Allapotgep vezerlese
-		game_vars.state = Game_StateMachine(&game_vars);
-		// Kilepes, ha elertuk a vegallapotot
-		if (game_vars.state == STATE_INVALID) {
-			quit = 1;
-		}
-	}
+    int quit = 0;
+    while (!quit) {
+        // Allapotgep vezerlese
+        game_vars.state = Game_StateMachine(&game_vars);
+        // Kilepes, ha elertuk a vegallapotot
+        if (game_vars.state == STATE_INVALID) {
+            quit = 1;
+        }
+    }
 #ifdef NDEBUG
-	debugmalloc_dump();
+    debugmalloc_dump();
 #endif // NDEBUG
-	return 0;
+    return 0;
 }

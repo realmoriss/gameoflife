@@ -1,3 +1,11 @@
+/**********************************
+ * Project:         Game of Life
+ * Filename:        gol_font.h
+ * Description:     A szovegmegjelenitessel kapcsolatos fuggvenyek
+ *
+ * Copyright Telek Istvan 2015
+ *
+ **********************************/
 #ifndef __GOL_FONT_H_INCLUDED__
 #define __GOL_FONT_H_INCLUDED__
 
@@ -27,7 +35,7 @@ void Game_RenderFont(GameFont *game_font, int x, int y);
  *
  * \param gamefont GameFont* A fontra mutato pointer
  * \param str const char* A beallitando szoveg (UTF-8 kodolassal)
- * \return int
+ * \return int A szoveg beallitasa sikeres-e
  *
  */
 int Game_SetFontText(GameFont *gamefont, const char *str);

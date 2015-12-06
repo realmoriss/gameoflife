@@ -1,3 +1,11 @@
+/**********************************
+ * Project:         Game of Life
+ * Filename:        gol_grid.h
+ * Description:     Az eletterel kapcsolatos fuggvenyek
+ *
+ * Copyright Telek Istvan 2015
+ *
+ **********************************/
 #ifndef __GOL_GRID_H_INCLUDED__
 #define __GOL_GRID_H_INCLUDED__
 
@@ -5,7 +13,6 @@ const int GRID_SIZE_DEFAULT;  /**< A grid alapertelmezett merete */
 
 /** \brief Letrehoz egy uj gridet es visszaadja a ra mutato pointert
  *
- * \param renderer SDL_Renderer*
  * \param size_startx const int a grid szelessege
  * \param size_starty const int a grid magassaga
  * \return Grid* a gridre mutato pointer (Hiba eseten NULL)
@@ -65,16 +72,6 @@ void grid_set(Grid *grid, const int x, const int y, const Cell cell);
  *
  */
 Cell grid_get(Grid *grid, const int x, const int y);
-
-/** \brief Megallapitja a parameterkent megadott koordinatakon talalhato elem kovetkezo allapotat es tarolja is
- *
- * \param grid Grid* a gridre mutato pointer
- * \param x int az elem x koordinataja
- * \param y int az elem y koordinataja
- * \return void
- *
- */
-void grid_cell_next_state(Grid *grid, int x, int y);
 
 /** \brief Vegigmegy a grid elemein es elvegzi a kovetkezo allapotok kiszamolasat
  *
